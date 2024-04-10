@@ -151,13 +151,13 @@ const refreshEmployeeForm = () => {
 }
 
 //get designation function to return designation name
-/* const getDesignation = (ob) => {
+const getDesignation = (ob) => {
     return ob.designationid.name;
-} */
+}
 
 //get employee status function to return employee status
 //compair object's key=name
-/* const getEmployeeStatus = (ob) => {
+const getEmployeeStatus = (ob) => {
     if (ob.employeeStatusid.name == 'Working') {
         return '<p class="status-working>' + ob.employeeStatusid.name + '</p>';
     }
@@ -172,15 +172,15 @@ const refreshEmployeeForm = () => {
     } else {
         return '<p  class="status-other">' + ob.employeestatusid.name + '</p>'
     }
-} */
+}
 
-/* //employee print function
-const printEmployee = (ob, rowIndex) => {} */
-
-
+//employee print function
+const printEmployee = (ob, rowIndex) => {}
 
 
-/* 
+
+
+
 const employeeFormRefill = (ob, rowIndex) => {
     $('#employeeAddModal').modal('show');
 
@@ -189,7 +189,7 @@ const employeeFormRefill = (ob, rowIndex) => {
     while updated data changed on employee variable, oldEmployee still remain prev value
     this can used to check if there is any change or not
     */
-/*
+
 
     employee = JSON.parse(JSON.stringify(ob))
     oldEmployee = JSON.parse(JSON.stringify(ob)) //for checking updates
@@ -216,12 +216,12 @@ const employeeFormRefill = (ob, rowIndex) => {
     //pass designation data to common function to create dynamic dropdown
     fillDataIntoSelect(selectDesignation, "Select Designation", designations, "name")
 
-} 
-*/
+}
 
 
 
-/* //delete function for  deleting record from table
+
+//delete function for  deleting record from table
 const deleteEmployee = (ob, rowIndex) => {
     //user conformation
     let userConform = confirm("Are you sure  to delete following employee \n?" + ob.fullname);
@@ -254,9 +254,9 @@ const deleteEmployee = (ob, rowIndex) => {
             refreshEmployeeTable()
         }
     }
-} */
+}
 
-/* //create function for validate full name name generate callingname data list
+//create function for validate full name name generate callingname data list
 const textFullNameValidator = (feildId) => {
     //assign fullname inputField value to fullnamevalue
     const fullNameValue = feildId.value;
@@ -320,9 +320,9 @@ const textFullNameValidator = (feildId) => {
         //color that border with error color
         feildId.style.border = '2px solid red';
     }
-} */
+}
 
-/* //check if any input errors has in user form
+//check if any input errors has in user form
 const checkEmployeeInputError = () => {
     let errors = '';
     if (employee.fullname == null) {
@@ -357,8 +357,8 @@ const checkEmployeeInputError = () => {
 
     return errors;
 }
- */
-/* //function for submit
+
+//function for submit
 const buttonEmployeeSubmit = () => {
     //console.log('on submit');
     console.log(employee);
@@ -416,9 +416,9 @@ const buttonEmployeeSubmit = () => {
         //if error ext then set alert
         alert('form has following error...\n' + errors);
     }
-} */
+}
 
-/* //check if employeeform has any updates
+//check if employeeform has any updates
 const checkEmployeeFormUpdates = () => {
     let updates = "";
 
@@ -466,78 +466,77 @@ const checkEmployeeFormUpdates = () => {
 
 
 
-} */
+}
 
-/* //function for when click update
+//function for when click update
 const buttonEmployeeUpdate = () => {
-    console.log("clicked")
+        console.log("clicked")
 
-    //check form error
-    let errors = checkEmployeeInputError();
+        //check form error
+        let errors = checkEmployeeInputError();
 
-    //check code has error, if code doesn't have  any errors
-    if (errors == "") {
+        //check code has error, if code doesn't have  any errors
+        if (errors == "") {
 
-        //check form update
+            //check form update
 
-        let updates = checkEmployeeFormUpdates();
+            let updates = checkEmployeeFormUpdates();
 
-        //check there is no updates or any updations
-        if (updates == "") {
-            alert("Nothing Updates")
-        } else {
+            //check there is no updates or any updations
+            if (updates == "") {
+                alert("Nothing Updates")
+            } else {
 
-            //get conformation from user to made updation
-            let userConfirm = confirm("Are You Sure to Update this Changes? \n" + updates);
+                //get conformation from user to made updation
+                let userConfirm = confirm("Are You Sure to Update this Changes? \n" + updates);
 
-            //if user conform
-            if (userConfirm) {
-                //call put service requestd  -this use for updations
-                let putServiceResponse;
+                //if user conform
+                if (userConfirm) {
+                    //call put service requestd  -this use for updations
+                    let putServiceResponse;
 
-                $.ajax("/employee", {
-                    type: "PUT",
-                    async: false,
-                    contentType: "application/json",
-                    data: JSON.stringify(employee),
+                    $.ajax("/employee", {
+                        type: "PUT",
+                        async: false,
+                        contentType: "application/json",
+                        data: JSON.stringify(employee),
 
 
-                    success: function(successResponseOb) {
-                        putServiceResponse = successResponseOb;
-                    },
+                        success: function(successResponseOb) {
+                            putServiceResponse = successResponseOb;
+                        },
 
-                    error: function(failedResponseOb) {
-                        putServiceResponse = failedResponseOb;
+                        error: function(failedResponseOb) {
+                            putServiceResponse = failedResponseOb;
+                        }
+
+                    });
+                    //check put service response
+                    if (putServiceResponse == "OK") {
+                        alert("Updated Successfully");
+
+                        //hide the moadel
+                        $('#employeeAddModal').modal('hide');
+                        //refreash employee table for realtime updation
+                        refreshEmployeeTable();
+                        //reset the employee form
+                        formEmployee.reset();
+                        //employee form refresh
+                        refreshEmployeeForm();
+                    } else {
+                        //handling errors
+                        alert("Update not Completed :\n" + putServiceResponse)
                     }
-
-                });
-                //check put service response
-                if (putServiceResponse == "OK") {
-                    alert("Updated Successfully");
-
-                    //hide the moadel
-                    $('#employeeAddModal').modal('hide');
-                    //refreash employee table for realtime updation
-                    refreshEmployeeTable();
-                    //reset the employee form
-                    formEmployee.reset();
-                    //employee form refresh
-                    refreshEmployeeForm();
-                } else {
-                    //handling errors
-                    alert("Update not Completed :\n" + putServiceResponse)
                 }
             }
+        } else {
+            //show user to what errors happen
+            alert("Employee Form  has Following Errors..\n" + errors)
         }
-    } else {
-        //show user to what errors happen
-        alert("Employee Form  has Following Errors..\n" + errors)
+
+
     }
-
-
-}
- */
-/* //define function callingname validation
+    //define function callingname validation
 const textCallingNameValidator = (field) => {
     const fieldValue = field.value;
 
@@ -551,9 +550,9 @@ const textCallingNameValidator = (field) => {
         field.style.border = '2px solid red';
         employee.callingname = null;
     }
-} */
+}
 
-/* //function for close the modal and refresh the table
+//function for close the modal and refresh the table
 const buttonModalClose = () => {
     const closeResponse = confirm('Are you sure to close the modal?')
 
@@ -565,4 +564,4 @@ const buttonModalClose = () => {
         //this will reset all data(refreash)
         formEmployee.reset();
     }
-} */
+}

@@ -5,7 +5,7 @@
 
 <head>
     <link rel="stylesheet" href="resources/style/employee.css">
-    <script src="/resources/script/employee.js"></script>
+    <script src="resources/controller/employee.js"></script>
 </head>
 
 <body>
@@ -180,7 +180,7 @@
                         <!-- mobile start -->
                         <div class="col-4">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="mobile" placeholder="" required>
+                                <input type="text" class="form-control" required id="textMobileNo" onkeyup="textValidator(this,'^[0][7][01245678][0-9]{7}$', 'employee', 'mobile')" placeholder="Enter Mobile no">
                                 <label for="mobile">Mobile No<span class="requiredIcon">*</span></label>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
                         <!-- land start -->
                         <div class="col-4">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="land" placeholder="">
+                                <input type="text" class="form-control" id="textLandNo" placeholder="Enter Land No" onkeyup="textValidator(this,'^[0][0-9]{8}$'),'employee','land'">
                                 <label for="land">Land No</label>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                         <!-- land start -->
                         <div class="col-4">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="address" placeholder=""></textarea>
+                                <textarea class="form-control" id="textAddress" placeholder="Enter Address" required onkeyup="textValidator(this,'^(([0-9\\/\\-\\sA-Za-z]{1,20}[\\,][\\s])+([A-Z][a-z0-9\\-]{1,20}[.]))$','employee','address')"></textarea>
                                 <label for="address">Address<span class="requiredIcon">*</span></label>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                         <!-- note start -->
                         <div class="col-4">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="note" placeholder=""></textarea>
+                                <textarea class="form-control" id="textNote" placeholder="Enter Note" onkeyup="textValidator(this,'^(([0-9A-Za-z\\.\\-\\s]{1,100}))$','employee','address')"></textarea>
                                 <label for="note">Note</label>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                         <!--designation start-->
                         <div class="col-4">
                             <div class="mb-3 form-floating">
-                                <select name="designation" id="designation" class="form-select">
+                                <select name="designation" class="form-select" id="selectDesignation" onchange="selectDynamicValidator(this,'','employee','designationid')">
                                     <option value=""  selected disabled>Select Designation</option>
                                 </select>
                             </div>
@@ -223,7 +223,7 @@
                         <!--employee status start-->
                         <div class="col-4">
                             <div class="mb-3 form-floating">
-                                <select name="empoyeestatus" id="empoyeestatus" class="form-select">
+                                <select name="employeestatus" class="form-select" id="selectEmployeeStatus" required onchange="selectDynamicValidator(this,'','employee','employeestatusid')">
                                     <option value=""  selected disabled>Select Employee Status</option>
                                 </select>
                             </div>
@@ -234,7 +234,7 @@
 
                 <div class="row mt-3 mb-3">
                     <div class="col-6">
-                        <div class="row">
+                        <div class="row" id="divModifyButton">
                             <div class="col-1"></div>
                             <div class="col-2"><button type="button" class="modal-button modal-btn-print" data-bs-dismiss="modal">Print</button></div>
                             <div class="col-2"><button type="button" class="modal-button modal-btn-delete" data-bs-dismiss="modal">Delete</button></div>
@@ -244,9 +244,9 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-5"></div>
-                            <div class="col-2"><button type="button" class="modal-button modal-btn-clear" data-bs-dismiss="modal">Clear</button></div>
-                            <div class="col-2"><button type="button" class="modal-button modal-btn-update" data-bs-dismiss="modal">Update</button></div>
-                            <div class="col-2"><button type="button" class="modal-button modal-btn-submit">Submit</button></div>
+                            <div class="col-2"><button type="reset" class="modal-button modal-btn-clear" data-bs-dismiss="modal">Clear</button></div>
+                            <div class="col-2"><button type="submit" class="modal-button modal-btn-update" onclick="buttonEmployeeUpdate()">Update</button></div>
+                            <div class="col-2"><button type="submit" class="modal-button modal-btn-submit" onclick="buttonEmployeeSubmit()">Submit</button></div>
                             <div class="col-1"></div>
                         </div>
                     </div>
@@ -264,17 +264,16 @@
                                
                                
                                
-                                <input type="text" id="textMobileNo" required class="form-control" onkeyup="textValidator(this,'^[0][7][01245678][0-9]{7}$', 'employee', 'mobile')" placeholder="Enter Mobile no">           
-                                    <input type="text" id="textLandNo" placeholder="Enter Land No" class="form-control" onkeyup="textValidator(this,'^[0][0-9]{8}$'),'employee','land'">
-                                    <textarea id="textAddress" class="form-control" placeholder="Enter Address" required onkeyup="textValidator(this,'^(([0-9\\/\\-\\sA-Za-z]{1,20}[\\,][\\s])+([A-Z][a-z0-9\\-]{1,20}[.]))$','employee','address')"></textarea>
-
-                                <textarea id="textNote" class="form-control" placeholder="Enter Note" onkeyup="textValidator(this,'^(([0-9A-Za-z\\.\\-\\s]{1,100}))$','employee','address')"></textarea>
-
-                                <select id="selectCivilStatus" class="form-select" required onchange="selectStaticValidator(this,'','employee','civilstatus')">
+                                        
                                    
-                                <select required class="form-select" id="selectDesignation" onchange="selectDynamicValidator(this,'','employee','designation_id')">
                                    
-                                <select id="selectStatus" class="form-select" required onchange="selectDynamicValidator(this,'','employee','employeestatus_id')">
+
+                               
+
+                                   
+            
+                                   
+                               
                                     
                                     <button type="button" style="width: 25%;" onclick="deleteEmployee(window['editOb'], window['editRow'])" class="btn btn-danger fw-bold ms-2 me-2"> Delete </button>
                                     <button type="button" style="width: 25%;" class="btn btn-info fw-bold"> Print </button>
