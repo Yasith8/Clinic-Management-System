@@ -65,11 +65,13 @@ window.addEventListener('load', () => {
     //dynamicly get data
     employeeStatus = getServiceAjaxRequest("/status/alldata");
 
+
     //pass employee statuss data to common function to create dynamic dropdown
     fillDataIntoSelect(selectStatus, "Please Select", employeeStatus, 'name')
 
     //dynamicly get data
     designations = getServiceAjaxRequest("/designation/alldata");
+
 
     //pass designation data to common function to create dynamic dropdown
     fillDataIntoSelect(selectDesignation, "Select Designation", designations, "name")
@@ -106,13 +108,19 @@ const refreshEmployeeTable = () => {
 
     })
 
+    console.log(employees)
 
     const displayPropertyList = [
         { dataType: 'text', propertyName: 'empid' },
         { dataType: 'text', propertyName: 'fullname' },
         { dataType: 'text', propertyName: 'nic' },
-        /*   { dataType: 'function', propertyName: getDesignation() },
-          { dataType: 'function', propertyName: getEmployeeStatus() }, */
+        { dataType: 'text', propertyName: 'gender' },
+        { dataType: 'text', propertyName: 'email' },
+        { dataType: 'text', propertyName: 'mobile no' },
+        { dataType: 'text', propertyName: 'land no' },
+        { dataType: 'text', propertyName: 'dob' },
+        { dataType: 'function', propertyName: getDesignation() },
+        { dataType: 'function', propertyName: getEmployeeStatus() },
     ];
 
 
