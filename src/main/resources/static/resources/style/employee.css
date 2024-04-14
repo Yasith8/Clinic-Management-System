@@ -3,6 +3,23 @@
     padding: 0;
 }
 
+body {
+    background-image: url("../image/img1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.Btn {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #6669b0;
+}
+
+.Btn:hover {
+    background-color: #43456e;
+    border: 1px solid #43456e;
+}
+
 .addBtn {
     background-color: #6669b0;
     color: white;

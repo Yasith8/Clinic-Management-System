@@ -28,7 +28,7 @@
 
             </div>
             <div class="col-4 text-end">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#employeeAddModal" class="btn addBtn">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#employeeAddModal" class="Btn addBtn">
                     Add New Employee </button>
             </div>
             <div class="col-1"></div>
@@ -49,11 +49,13 @@
                                     <th> Employee ID </th>
                                     <th> Full Name </th>
                                     <th> NIC </th>
-                                    <th> Mobile </th>
+                                    <th> Gender </th>
                                     <th> Email </th>
-                                    <th> Status </th>
+                                    <th> Mobile No </th>
+                                    <th> Land No </th>
+                                    <th> DOB </th>
                                     <th> Designation </th>
-                                    <th> Modify </th>
+                                    <th> Status </th>
                                 </tr>
                             </thead>
 
@@ -74,17 +76,7 @@
                                         <p>Resign</p>
                                     </td>
 
-                                    <td>
-                                        <button type="button" class="btn btnEdit">
-                                            <i class="fa-solid fa-edit"></i>
-                                        </button>
-                                        <button type="button" class="btn ms-1 me-1 btnDel">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                        <button type="button" class="btn btnView">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -105,157 +97,158 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Employee</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="buttonModalClose()"></button>
                 </div>
-                <div class="modal-body">
-                    <!-- Full Name Input Start -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" placeholder="your fullname" id="textFullName" required data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ex - Yasith Nawodya De Silva" onkeyup="textFullNameValidator(this)">
-                                <label for="fullname">Full Name <span class="requiredIcon">*</span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Full Name Input end -->
-
-                    <!-- nic Input Start -->
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" placeholder="" required onkeyup="textValidator(this,'^(([0-9]{9}[VvXx])||([0-9]{12}))$','employee','nic')" id="textNIC" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ex- 000000000V / 200000000000">
-                                <label for="nic">National Identity Card <span class="requiredIcon">*</span></label>
-                            </div>
-                        </div>
-                        <!-- callingname Input end -->
-                        <div class="col-6">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" placeholder="" required list="calllist" onkeyup="textCallingNameValidator(this)" id="textCallingName">
-                                <label for="callingname">Calling Name<span class="requiredIcon">*</span></label>
-
-                                <datalist id="calllist">
-                                    <option value="abc">
-                                </datalist>
-                            </div>
-                        </div>
-                        <!-- callingname Input end -->
-                    </div>
-
-                    <div class="row">
-                        <!-- email start -->
-                        <div class="col-4">
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="textEmail" placeholder="Enter Email" onkeyup="textValidator(this,'^[A-Za-z0-9\\_\\-]{8,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'employee','email')" required>
-                                <label for="email">Email<span class="requiredIcon">*</span></label>
-                            </div>
-                        </div>
-                        <!-- email end -->
-                        <!-- radio gender start -->
-                        <div class="col-4">
-                            <div class="mb-3 radioAlign">
-                                <label class="">Gender<span class="requiredIcon">*</span></label>
-                                <div class="radioBtnAlign" id="gender">
-
-                                    <div class="d-flex gap-2">
-                                        <input type="radio" id="radioMale" value="Male" onchange="radioValidator(this,'','employee','gender',label1Id,label2Id)" name="gender" required>
-                                        <label for="radioMale" class="fw-bold" id="label1Id">Male</label>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <input type="radio" id="radioFemale" value="Female" onchange="radioValidator(this,'','employee','gender',label2Id,label1Id)" name="gender" required>
-                                        <label for="radioFemale" id="label2Id" class="fw-bold">Female</label>
-                                    </div>
-
+                <form id="formEmployee">
+                    <div class="modal-body">
+                        <!-- Full Name Input Start -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="your fullname" name="fullname" id="textFullName" required data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ex - Yasith Nawodya De Silva" onkeyup="textFullNameValidator(this)">
+                                    <label for="fullname">Full Name <span class="requiredIcon">*</span></label>
                                 </div>
                             </div>
                         </div>
-                        <!-- radio gender end -->
-                        <!-- dob start -->
-                        <div class="col-4">
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="dateDateOfBirth" onchange="textValidator(this,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dob')" placeholder="" required>
-                                <label for="dob">Date of Birth<span class="requiredIcon">*</span></label>
+                        <!-- Full Name Input end -->
+
+                        <!-- nic Input Start -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="" required onkeyup="textValidator(this,'^(([0-9]{9}[VvXx])||([0-9]{12}))$','employee','nic')" id="textNIC" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ex- 000000000V / 200000000000">
+                                    <label for="nic">National Identity Card <span class="requiredIcon">*</span></label>
+                                </div>
                             </div>
-                        </div>
-                        <!-- dob end -->
-                    </div>
-                    <div class="row">
-                        <!-- mobile start -->
-                        <div class="col-4">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" required id="textMobileNo" onkeyup="textValidator(this,'^[0][7][01245678][0-9]{7}$', 'employee', 'mobile')" placeholder="Enter Mobile no">
-                                <label for="mobile">Mobile No<span class="requiredIcon">*</span></label>
+                            <!-- callingname Input end -->
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="" required list="dlFullNameParts" onkeyup="textCallingNameValidator(this)" id="textCallingName">
+                                    <label for="callingname">Calling Name<span class="requiredIcon">*</span></label>
+
+                                    <datalist id="dlFullNameParts">
+                                    <option value="abc">
+                                </datalist>
+                                </div>
                             </div>
+                            <!-- callingname Input end -->
                         </div>
-                        <!-- mobile end -->
-                        <!-- land start -->
-                        <div class="col-4">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="textLandNo" placeholder="Enter Land No" onkeyup="textValidator(this,'^[0][0-9]{8}$'),'employee','land'">
-                                <label for="land">Land No</label>
+
+                        <div class="row">
+                            <!-- email start -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="textEmail" placeholder="Enter Email" onkeyup="textValidator(this,'^[A-Za-z0-9\\_\\-]{8,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'employee','email')" required>
+                                    <label for="email">Email<span class="requiredIcon">*</span></label>
+                                </div>
                             </div>
-                        </div>
-                        <!-- land end -->
-                        <!-- land start -->
-                        <div class="col-4">
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" id="textAddress" placeholder="Enter Address" required onkeyup="textValidator(this,'^(([0-9\\/\\-\\sA-Za-z]{1,20}[\\,][\\s])+([A-Z][a-z0-9\\-]{1,20}[.]))$','employee','address')"></textarea>
-                                <label for="address">Address<span class="requiredIcon">*</span></label>
+                            <!-- email end -->
+                            <!-- radio gender start -->
+                            <div class="col-4">
+                                <div class="mb-3 radioAlign">
+                                    <label class="">Gender<span class="requiredIcon">*</span></label>
+                                    <div class="radioBtnAlign" id="gender">
+
+                                        <div class="d-flex gap-2">
+                                            <input type="radio" id="radioMale" value="Male" onchange="radioValidator(this,'','employee','gender',label1Id,label2Id)" name="gender" required>
+                                            <label for="radioMale" class="fw-bold" id="label1Id">Male</label>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <input type="radio" id="radioFemale" value="Female" onchange="radioValidator(this,'','employee','gender',label2Id,label1Id)" name="gender" required>
+                                            <label for="radioFemale" id="label2Id" class="fw-bold">Female</label>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <!-- land end -->
-                    </div>
-                    <div class="row">
-                        <!-- note start -->
-                        <div class="col-4">
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" id="textNote" placeholder="Enter Note" onkeyup="textValidator(this,'^(([0-9A-Za-z\\.\\-\\s]{1,100}))$','employee','address')"></textarea>
-                                <label for="note">Note</label>
+                            <!-- radio gender end -->
+                            <!-- dob start -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="dateDateOfBirth" onchange="textValidator(this,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dob')" placeholder="" required>
+                                    <label for="dob">Date of Birth<span class="requiredIcon">*</span></label>
+                                </div>
                             </div>
+                            <!-- dob end -->
                         </div>
-                        <!-- note end -->
-                        <!--designation start-->
-                        <div class="col-4">
-                            <div class="mb-3 form-floating">
-                                <select name="designation" class="form-select" id="selectDesignation" onchange="selectDynamicValidator(this,'','employee','designationid')">
+                        <div class="row">
+                            <!-- mobile start -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" required id="textMobileNo" onkeyup="textValidator(this,'^[0][7][01245678][0-9]{7}$', 'employee', 'mobile')" placeholder="Enter Mobile no">
+                                    <label for="mobile">Mobile No<span class="requiredIcon">*</span></label>
+                                </div>
+                            </div>
+                            <!-- mobile end -->
+                            <!-- land start -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="textLandNo" placeholder="Enter Land No" onkeyup="textValidator(this,'^[0][0-9]{8}$'),'employee','land'">
+                                    <label for="land">Land No</label>
+                                </div>
+                            </div>
+                            <!-- land end -->
+                            <!-- land start -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="textAddress" placeholder="Enter Address" required onkeyup="textValidator(this,'^(([0-9\\/\\-\\sA-Za-z]{1,20}[\\,][\\s])+([A-Z][a-z0-9\\-]{1,20}[.]))$','employee','address')"></textarea>
+                                    <label for="address">Address<span class="requiredIcon">*</span></label>
+                                </div>
+                            </div>
+                            <!-- land end -->
+                        </div>
+                        <div class="row">
+                            <!-- note start -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="textNote" placeholder="Enter Note" onkeyup="textValidator(this,'^(([0-9A-Za-z\\.\\-\\s]{1,100}))$','employee','address')"></textarea>
+                                    <label for="note">Note</label>
+                                </div>
+                            </div>
+                            <!-- note end -->
+                            <!--designation start-->
+                            <div class="col-4">
+                                <div class="mb-3 form-floating">
+                                    <select name="designation" class="form-select" id="selectDesignation" onchange="selectDynamicValidator(this,'','employee','designationid')">
                                     <option value=""  selected disabled>Select Designation</option>
                                 </select>
+                                </div>
                             </div>
-                        </div>
-                        <!--designation end-->
-                        <!--employee status start-->
-                        <div class="col-4">
-                            <div class="mb-3 form-floating">
-                                <select name="employeestatus" class="form-select" id="selectEmployeeStatus" required onchange="selectDynamicValidator(this,'','employee','employeestatusid')">
+                            <!--designation end-->
+                            <!--employee status start-->
+                            <div class="col-4">
+                                <div class="mb-3 form-floating">
+                                    <select name="employeestatus" class="form-select" id="selectEmployeeStatus" required onchange="selectDynamicValidator(this,'','employee','employeestatusid')">
                                     <option value=""  selected disabled>Select Employee Status</option>
                                 </select>
+                                </div>
+                            </div>
+                            <!--employee status end-->
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-3">
+                        <div class="col-6">
+                            <div class="row" id="divModifyButton">
+                                <div class="col-1"></div>
+                                <div class="col-2"><button type="button" class="modal-button modal-btn-print" data-bs-dismiss="modal">Print</button></div>
+                                <div class="col-2"><button type="button" class="modal-button modal-btn-delete" data-bs-dismiss="modal">Delete</button></div>
+                                <div class="col-7"></div>
                             </div>
                         </div>
-                        <!--employee status end-->
-                    </div>
-                </div>
-
-                <div class="row mt-3 mb-3">
-                    <div class="col-6">
-                        <div class="row" id="divModifyButton">
-                            <div class="col-1"></div>
-                            <div class="col-2"><button type="button" class="modal-button modal-btn-print" data-bs-dismiss="modal">Print</button></div>
-                            <div class="col-2"><button type="button" class="modal-button modal-btn-delete" data-bs-dismiss="modal">Delete</button></div>
-                            <div class="col-7"></div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-5"></div>
+                                <div class="col-2"><button type="reset" class="modal-button modal-btn-clear" data-bs-dismiss="modal">Clear</button></div>
+                                <div class="col-2"><button type="submit" class="modal-button modal-btn-update" onclick="buttonEmployeeUpdate()">Update</button></div>
+                                <div class="col-2"><button type="submit" class="modal-button modal-btn-submit" onclick="buttonEmployeeSubmit()">Submit</button></div>
+                                <div class="col-1"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-5"></div>
-                            <div class="col-2"><button type="reset" class="modal-button modal-btn-clear" data-bs-dismiss="modal">Clear</button></div>
-                            <div class="col-2"><button type="submit" class="modal-button modal-btn-update" onclick="buttonEmployeeUpdate()">Update</button></div>
-                            <div class="col-2"><button type="submit" class="modal-button modal-btn-submit" onclick="buttonEmployeeSubmit()">Submit</button></div>
-                            <div class="col-1"></div>
-                        </div>
+
                     </div>
 
-                </div>
-
-
+                </form>
             </div>
         </div>
     </div>

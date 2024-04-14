@@ -13,7 +13,8 @@ import bitproject.lk.thalpitiyaclinic.Entity.EmployeeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.*;
@@ -63,8 +64,45 @@ public class EmployeeController {
         return dao.findAll();
     }
 
-  
 
+    //post mapping
+    //used for add new employee to the db
+    @PostMapping(value = "/employee")
+    public String addEmployee(@RequestBody EmployeeEntity employee){
+        //Authentication and Autherization
+
+        //Check Duplicate 
+
+        //Check Duplicate of NIC
+        EmployeeEntity extEmployeeByNic=dao.getByNic(employee.getNic());
+
+        if(extEmployeeByNic!=null){
+            return "Save not Completed : given NIC - "+employee.getNic()+" Already Exist...!";
+        }
+        
+        //check duplicates of Email
+        EmployeeEntity extEmployeeByEmail=dao.getByEmail(employee.getEmail());
+        
+        if(extEmployeeByEmail!=null){
+            return "Save not Completed : given Email - "+employee.getEmail()+" Already Exist...!";
+        }
+
+        try {
+            //set AutoGenarated Value
+            String nextNumber=dao.getNextEmployeeNumber();
+            if(nextNumber==null){
+                employee.setEmpid("003");
+            }else{
+                employee.setEmpid(nextNumber);
+            }
+
+            dao.save(employee);
+            return "OK";
+        } catch (Exception e) {
+            return "Save not Completed : "+e.getMessage();
+        }
+
+    }
 
        
 

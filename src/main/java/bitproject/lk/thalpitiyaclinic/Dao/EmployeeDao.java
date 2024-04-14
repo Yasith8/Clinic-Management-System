@@ -1,6 +1,8 @@
 package bitproject.lk.thalpitiyaclinic.Dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import bitproject.lk.thalpitiyaclinic.Entity.EmployeeEntity;
 //import java.util.List;
 import java.util.List;
@@ -23,6 +25,16 @@ public interface EmployeeDao extends JpaRepository<EmployeeEntity, Integer> {
      * 
      * 2.JPA Query --default
      */
+
+     //TODO  need to know about e.nic?=1
+     @Query("select e from Employee e where e.nic=?1")
+     public EmployeeEntity getByNic(String nic);
+
+     @Query("select e from Employee e where e.email=?1")
+     public EmployeeEntity getByEmail(String email);
+
+     @Query(value = "select concat('E',lpad(substring(max(e.empid),2)+1,8,'0')) as EmpId from clinic.employee as e",nativeQuery = true)
+     public String getNextEmployeeNumber();
 
 
 }

@@ -116,11 +116,11 @@ const refreshEmployeeTable = () => {
         { dataType: 'text', propertyName: 'nic' },
         { dataType: 'text', propertyName: 'gender' },
         { dataType: 'text', propertyName: 'email' },
-        { dataType: 'text', propertyName: 'mobile no' },
-        { dataType: 'text', propertyName: 'land no' },
+        { dataType: 'text', propertyName: 'mobile' },
+        { dataType: 'text', propertyName: 'landno' },
         { dataType: 'text', propertyName: 'dob' },
-        { dataType: 'function', propertyName: getDesignation() },
-        { dataType: 'function', propertyName: getEmployeeStatus() },
+        { dataType: 'function', propertyName: getDesignation },
+        { dataType: 'function', propertyName: getEmployeeStatus },
     ];
 
 
@@ -166,7 +166,7 @@ const getDesignation = (ob) => {
 //get employee status function to return employee status
 //compair object's key=name
 const getEmployeeStatus = (ob) => {
-    if (ob.employeeStatusid.name == 'Working') {
+    if (ob.employeestatusid.name == 'Working') {
         return '<p class="status-working>' + ob.employeeStatusid.name + '</p>';
     }
 
@@ -282,7 +282,8 @@ const textFullNameValidator = (feildId) => {
         if (regPettern.test(fullNameValue)) {
             //valid value 
             //add success color for border
-            feildId.style.border = '2px solid green';
+            feildId.classList.remove('is-invalid');
+            feildId.classList.add('is-valid');
             employee.fullname = fullNameValue;
 
             //process to automatic genarating of calling name using fullname
@@ -306,6 +307,9 @@ const textFullNameValidator = (feildId) => {
         //if regex patten has error
         //that mean inputed content not in right criteria
         else {
+            //color that border with error color
+            feildId.classList.remove('is-valid');
+            feildId.classList.add('is-invalid');
             //empty datalist
             dlFullNameParts.innerHTML = '';
             //empty the fullname
@@ -313,8 +317,6 @@ const textFullNameValidator = (feildId) => {
             //assign callingname null
             employee.callingname = null;
 
-            //color that border with error color
-            feildId.style.border = '2px solid red';
         }
     }
     //if user leave the empty input field
@@ -326,7 +328,8 @@ const textFullNameValidator = (feildId) => {
         //clear the callingname
         employee.callingname = null;
         //color that border with error color
-        feildId.style.border = '2px solid red';
+        feildId.classList.remove('is-invalid');
+        feildId.classList.remove('is-valid');
     }
 }
 
@@ -551,11 +554,13 @@ const textCallingNameValidator = (field) => {
     const index = callingnameList.map(element => element).indexOf(fieldValue);
     if (index != -1) {
         //valid
-        field.style.border = '2px solid green'
+        field.classList.remove('is-invalid');
+        field.classList.add('is-valid');
         employee.callingname = fieldValue;
     } else {
         //invalid
-        field.style.border = '2px solid red';
+        field.classList.remove('is-valid');
+        field.classList.add('is-invalid');
         employee.callingname = null;
     }
 }
@@ -567,6 +572,8 @@ const buttonModalClose = () => {
     //check closeResponse is true or false
     if (closeResponse) {
         $('#employeeAddModel').modal('hide');
+
+        //todo need to ask about why not datafields not empty the colors
 
         //formEmployee is id of form
         //this will reset all data(refreash)
