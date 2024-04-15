@@ -63,11 +63,11 @@ window.addEventListener('load', () => {
     //this common function is inside in commonFunction.js
 
     //dynamicly get data
-    employeeStatus = getServiceAjaxRequest("/status/alldata");
+    employeeStatus = getServiceAjaxRequest("/employeestatus/alldata");
 
 
     //pass employee statuss data to common function to create dynamic dropdown
-    fillDataIntoSelect(selectStatus, "Please Select", employeeStatus, 'name')
+    fillDataIntoSelect(selectEmployeeStatus, "Select Status", employeeStatus, 'name')
 
     //dynamicly get data
     designations = getServiceAjaxRequest("/designation/alldata");
@@ -139,20 +139,28 @@ const refreshEmployeeForm = () => {
     //define new object
     employeeStatus = getServiceAjaxRequest("/status/alldata")
 
+
     //call filldataintoselect function on commonfunction js for  filling select option
-    fillDataIntoSelect(selectStatus, "Please Select", employeeStatus, 'name')
+    fillDataIntoSelect(selectEmployeeStatus, "Please Select", employeeStatus, 'name')
 
     //dynamicly get data
     designations = getServiceAjaxRequest("/designation/alldata");
+
 
     //pass designation data to common function to create dynamic dropdown
     fillDataIntoSelect(selectDesignation, "Select Designation", designations, "name")
 
 
-    selectStatus.classList.remove('is-valid');
+    selectEmployeeStatus.classList.remove('is-valid');
+    selectEmployeeStatus.classList.remove('is-invalid');
     selectDesignation.classList.remove('is-valid')
+    selectDesignation.classList.remove('is-invalid')
 
-    textFullName.style.border = '1px solid #ced4da'
+    textFullName.classList.remove('is-valid')
+    textFullName.classList.remove('is-invalid')
+    textCallingName.classList.remove('is-invalid')
+    textCallingName.classList.remove('is-valid')
+
     textCallingName.style.border = '1px solid #ced4da'
     textEmail.style.border = '1px solid #ced4da'
 
@@ -207,9 +215,17 @@ const employeeFormRefill = (ob, rowIndex) => {
     textFullName.value = ob.fullname;
     textCallingName.value = ob.callingname
     textNIC.value = ob.nic;
+
+    if (ob.gender == "male") {
+        radioMale.checked = true;
+    } else if (ob.gender == "female") {
+        radioFemale.checked = true;
+    }
+
     textEmail.value = ob.email;
     textAddress.value = ob.address;
     textMobileNo.value = ob.mobile;
+    textLandNo.value = ob.landno;
     dateDateOfBirth.value = ob.dob;
 
     //define new object
@@ -337,34 +353,38 @@ const textFullNameValidator = (feildId) => {
 const checkEmployeeInputError = () => {
     let errors = '';
     if (employee.fullname == null) {
-        //errors = errors + 'Full Name can not be null..! \n';
-        textFullName.style.border = '2px solid Red'
+        errors = errors + 'Full Name can not be null..! \n';
+        textFullName.classList.add("is-invalid")
     }
     if (employee.callingname == null) {
-        //errors = errors + 'Please enter calling name..! \n';
+        errors = errors + 'Please enter calling name..! \n';
         textCallingName.classList.add('is-invalid')
     }
-    if (employee.designation_id == null) {
+    if (employee.designationid == null) {
+        selectDesignation.classList.add('is-invalid')
         errors = errors + 'designation can not be null..! \n';
     }
-    if (employee.employeestatus_id == null) {
+    if (employee.employeestatusid == null) {
+        selectEmployeeStatus.classList.add('is-invalid')
         errors = errors + 'please select employee status..! \n';
     }
     if (employee.mobile == null) {
+        textMobileNo.classList.add('is-invalid')
         errors = errors + 'please enter mobile number..! \n';
     }
     if (employee.email == null) {
+        textEmail.classList.add('is-invalid')
         errors = errors + 'please enter your email..! \n';
     }
     if (employee.address == null) {
+        textAddress.classList.add('is-invalid')
         errors = errors + 'please enter your Address..! \n';
     }
     if (employee.dob == null) {
+        dateDateOfBirth.classList.add('is-invalid')
         errors = errors + 'please enter your Date of Bikrth..! \n';
     }
-    if (employee.civilstatus == null) {
-        errors = errors + 'please enter your civil status..! \n';
-    }
+
 
     return errors;
 }

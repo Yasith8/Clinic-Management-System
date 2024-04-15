@@ -67,6 +67,9 @@ public class EmployeeEntity {
     @Column(name="landno")
     private String landno;
 
+    @Column(name="address")
+    private String address;
+
     @Column(name="dob")
     private LocalDate dob;
 

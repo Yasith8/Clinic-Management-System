@@ -27,10 +27,10 @@ public interface EmployeeDao extends JpaRepository<EmployeeEntity, Integer> {
      */
 
      //TODO  need to know about e.nic?=1
-     @Query("select e from Employee e where e.nic=?1")
+     @Query("select e from EmployeeEntity e where e.nic=?1")
      public EmployeeEntity getByNic(String nic);
 
-     @Query("select e from Employee e where e.email=?1")
+     @Query("select e from EmployeeEntity e where e.email=?1")
      public EmployeeEntity getByEmail(String email);
 
      @Query(value = "select concat('E',lpad(substring(max(e.empid),2)+1,8,'0')) as EmpId from clinic.employee as e",nativeQuery = true)

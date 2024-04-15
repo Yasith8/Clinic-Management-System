@@ -28,11 +28,13 @@ const getServiceAjaxRequest = (url) => {
 
 
 //this function used to fill dynamic data come from db to dropdown
+//todo ask about selectedValue
 const fillDataIntoSelect = (fieldId, message, dataList, propertyName, selectedValue) => {
     //empty static content of dropdown
     fieldId.inerHTML = '';
 
     //check message is empty or not
+    //todo ask about select the message
     if (message != "") {
         //create option element
         const optionMsg = document.createElement('option');
